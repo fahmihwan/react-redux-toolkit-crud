@@ -13,16 +13,13 @@ export const saveProduct = createAsyncThunk("products/saveProduct", async (data)
     return response.data;
 });
 
-export const updateProduct = createAsyncThunk(
-    "products/updateProduct",
-    async ({ id, title, price }) => {
-        const response = await axios.patch(`http://localhost:3001/products/${id}`, {
-            title,
-            price,
-        });
-        return response.data;
-    }
-);
+export const updateProduct = createAsyncThunk("products/updateProduct", async ({ id, title, price }) => {
+    const response = await axios.patch(`http://localhost:3001/products/${id}`, {
+        title,
+        price,
+    });
+    return response.data;
+});
 export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
     await axios.delete(`http://localhost:3001/products/${id}`);
     return id;
