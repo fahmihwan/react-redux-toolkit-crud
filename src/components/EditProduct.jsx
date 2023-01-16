@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-    getProducts,
-    productSelectors,
-    updateProduct,
-} from "../futures/productSlice";
+import { getProducts, productSelectors, updateProduct } from "../futures/productSlice";
 
 const EditProduct = () => {
     const [title, setTitle] = useState("");
@@ -15,9 +11,7 @@ const EditProduct = () => {
     const navigate = useNavigate("/");
     const { id } = useParams();
 
-    const product = useSelector((state) =>
-        productSelectors.selectById(state, id)
-    );
+    const product = useSelector((state) => productSelectors.selectById(state, id));
 
     useEffect(() => {
         dispatch(getProducts());

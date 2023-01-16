@@ -1,51 +1,32 @@
-import {
-    createSlice,
-    createAsyncThunk,
-    createEntityAdapter,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // createAyncThunk : bermain dgn async function api
 // memanipulasi state, format array obj & menormalisasi data jika bermain dgn nested data
-export const getProducts = createAsyncThunk(
-    "products/getProducts",
-    async () => {
-        const response = await axios.get("http://localhost:3001/products");
-        return response.data;
-    }
-);
+export const getProducts = createAsyncThunk("products/getProducts", async () => {
+    const response = await axios.get("http://localhost:3001/products");
+    return response.data;
+});
 
-export const saveProduct = createAsyncThunk(
-    "products/saveProduct",
-    async (data) => {
-        const response = await axios.post(
-            "http://localhost:3001/products",
-            data
-        );
-        return response.data;
-    }
-);
+export const saveProduct = createAsyncThunk("products/saveProduct", async (data) => {
+    const response = await axios.post("http://localhost:3001/products", data);
+    return response.data;
+});
 
 export const updateProduct = createAsyncThunk(
     "products/updateProduct",
     async ({ id, title, price }) => {
-        const response = await axios.patch(
-            `http://localhost:3001/products/${id}`,
-            {
-                title,
-                price,
-            }
-        );
+        const response = await axios.patch(`http://localhost:3001/products/${id}`, {
+            title,
+            price,
+        });
         return response.data;
     }
 );
-export const deleteProduct = createAsyncThunk(
-    "products/deleteProduct",
-    async (id) => {
-        await axios.delete(`http://localhost:3001/products/${id}`);
-        return id;
-    }
-);
+export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
+    await axios.delete(`http://localhost:3001/products/${id}`);
+    return id;
+});
 
 const productEntity = createEntityAdapter({
     selectId: (product) => product.id,
@@ -83,8 +64,6 @@ const productSlice = createSlice({
     // },
 });
 
-export const productSelectors = productEntity.getSelectors(
-    (state) => state.product
-);
+export const productSelectors = productEntity.getSelectors((state) => state.product);
 export default productSlice.reducer;
 // export const { updateProduct } = productSlice.actions;
